@@ -7,12 +7,10 @@ import { ListOnScrollProps } from 'react-window';
 import { controller } from '/@/renderer/api/controller';
 import { queryKeys } from '/@/renderer/api/query-keys';
 import { ALBUM_CARD_ROWS } from '/@/renderer/components/card/card-rows';
-import {
-    VirtualGridAutoSizerContainer,
-    VirtualInfiniteGrid,
-} from '/@/renderer/components/virtual-grid';
+import { VirtualGridAutoSizerContainer } from '/@/renderer/components/virtual-grid/virtual-grid-wrapper';
+import { VirtualInfiniteGrid } from '/@/renderer/components/virtual-grid/virtual-infinite-grid';
 import { useListContext } from '/@/renderer/context/list-context';
-import { usePlayQueueAdd } from '/@/renderer/features/player';
+import { usePlayQueueAdd } from '/@/renderer/features/player/hooks/use-playqueue-add';
 import { useHandleFavorite } from '/@/renderer/features/shared/hooks/use-handle-favorite';
 import { AppRoute } from '/@/renderer/router/routes';
 import { useCurrentServer, useListStoreActions, useListStoreByKey } from '/@/renderer/store';
@@ -174,15 +172,17 @@ export const AlbumListGridView = ({ gridRef, itemCount }: any) => {
 
             const queryKey = queryKeys.albums.list(server?.id || '', query, id);
 
-            const albums = await queryClient.fetchQuery(queryKey, async ({ signal }) =>
-                controller.getAlbumList({
-                    apiClientProps: {
-                        server,
-                        signal,
-                    },
-                    query,
-                }),
-            );
+            const albums = await queryClient.fetchQuery({
+                queryFn: async ({ signal }) =>
+                    controller.getAlbumList({
+                        apiClientProps: {
+                            server,
+                            signal,
+                        },
+                        query,
+                    }),
+                queryKey,
+            });
 
             return albums;
         },

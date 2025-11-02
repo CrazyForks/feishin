@@ -277,7 +277,7 @@ export interface GenreListQuery extends BaseQuery<GenreListSort> {
 }
 
 // Genre List
-export type GenreListResponse = BasePaginatedResponse<Genre[]> | null | undefined;
+export type GenreListResponse = BasePaginatedResponse<Genre[]>;
 
 export type GenresResponse = Genre[];
 
@@ -416,6 +416,8 @@ export enum AlbumListSort {
 
 export type AlbumListArgs = BaseEndpointArgs & { query: AlbumListQuery };
 
+export type AlbumListCountArgs = BaseEndpointArgs & { query: ListCountQuery<AlbumListQuery> };
+
 export interface AlbumListQuery extends BaseQuery<AlbumListSort> {
     _custom?: {
         jellyfin?: Partial<z.infer<typeof jfType._parameters.albumList>>;
@@ -434,7 +436,9 @@ export interface AlbumListQuery extends BaseQuery<AlbumListSort> {
 }
 
 // Album List
-export type AlbumListResponse = BasePaginatedResponse<Album[]> | null | undefined;
+export type AlbumListResponse = BasePaginatedResponse<Album[]>;
+
+export type ListCountQuery<TQuery> = Omit<TQuery, 'limit' | 'startIndex'>;
 
 type AlbumListSortMap = {
     jellyfin: Record<AlbumListSort, JFAlbumListSort | undefined>;
@@ -527,7 +531,7 @@ export type AlbumDetailArgs = BaseEndpointArgs & { query: AlbumDetailQuery };
 export type AlbumDetailQuery = { id: string };
 
 // Album Detail
-export type AlbumDetailResponse = Album | null | undefined;
+export type AlbumDetailResponse = Album;
 
 export type AlbumInfo = {
     imageUrl: null | string;
@@ -535,6 +539,8 @@ export type AlbumInfo = {
 };
 
 export type SongListArgs = BaseEndpointArgs & { query: SongListQuery };
+
+export type SongListCountArgs = BaseEndpointArgs & { query: ListCountQuery<SongListQuery> };
 
 export interface SongListQuery extends BaseQuery<SongListSort> {
     _custom?: {
@@ -557,7 +563,7 @@ export interface SongListQuery extends BaseQuery<SongListSort> {
 }
 
 // Song List
-export type SongListResponse = BasePaginatedResponse<Song[]> | null | undefined;
+export type SongListResponse = BasePaginatedResponse<Song[]>;
 
 type SongListSortMap = {
     jellyfin: Record<SongListSort, JFSongListSort | undefined>;
@@ -647,6 +653,10 @@ export enum AlbumArtistListSort {
 
 export type AlbumArtistListArgs = BaseEndpointArgs & { query: AlbumArtistListQuery };
 
+export type AlbumArtistListCountArgs = BaseEndpointArgs & {
+    query: ListCountQuery<AlbumArtistListQuery>;
+};
+
 export interface AlbumArtistListQuery extends BaseQuery<AlbumArtistListSort> {
     _custom?: {
         jellyfin?: Partial<z.infer<typeof jfType._parameters.albumArtistList>>;
@@ -659,14 +669,14 @@ export interface AlbumArtistListQuery extends BaseQuery<AlbumArtistListSort> {
 }
 
 // Album Artist List
-export type AlbumArtistListResponse = BasePaginatedResponse<AlbumArtist[]> | null | undefined;
+export type AlbumArtistListResponse = BasePaginatedResponse<AlbumArtist[]>;
 
 export type SongDetailArgs = BaseEndpointArgs & { query: SongDetailQuery };
 
 export type SongDetailQuery = { id: string };
 
 // Song Detail
-export type SongDetailResponse = null | Song | undefined;
+export type SongDetailResponse = Song;
 
 type AlbumArtistListSortMap = {
     jellyfin: Record<AlbumArtistListSort, JFAlbumArtistListSort | undefined>;
@@ -740,6 +750,8 @@ export type AlbumArtistDetailResponse = AlbumArtist | null;
 
 export type ArtistListArgs = BaseEndpointArgs & { query: ArtistListQuery };
 
+export type ArtistListCountArgs = BaseEndpointArgs & { query: ListCountQuery<ArtistListQuery> };
+
 export interface ArtistListQuery extends BaseQuery<ArtistListSort> {
     _custom?: {
         jellyfin?: Partial<z.infer<typeof jfType._parameters.albumArtistList>>;
@@ -753,7 +765,7 @@ export interface ArtistListQuery extends BaseQuery<ArtistListSort> {
 }
 
 // Artist List
-export type ArtistListResponse = BasePaginatedResponse<AlbumArtist[]> | null | undefined;
+export type ArtistListResponse = BasePaginatedResponse<AlbumArtist[]>;
 
 type ArtistListSortMap = {
     jellyfin: Record<ArtistListSort, JFArtistListSort | undefined>;
@@ -872,6 +884,8 @@ export type FavoriteResponse = null | undefined;
 
 export type PlaylistListArgs = BaseEndpointArgs & { query: PlaylistListQuery };
 
+export type PlaylistListCountArgs = BaseEndpointArgs & { query: ListCountQuery<PlaylistListQuery> };
+
 export interface PlaylistListQuery extends BaseQuery<PlaylistListSort> {
     _custom?: {
         jellyfin?: Partial<z.infer<typeof jfType._parameters.playlistList>>;
@@ -883,7 +897,7 @@ export interface PlaylistListQuery extends BaseQuery<PlaylistListSort> {
 }
 
 // Playlist List
-export type PlaylistListResponse = BasePaginatedResponse<Playlist[]> | null | undefined;
+export type PlaylistListResponse = BasePaginatedResponse<Playlist[]>;
 
 export type RatingQuery = {
     item: AnyLibraryItems;
@@ -991,7 +1005,7 @@ export type MusicFolderListArgs = BaseEndpointArgs;
 export type MusicFolderListQuery = null;
 
 // Music Folder List
-export type MusicFolderListResponse = BasePaginatedResponse<MusicFolder[]> | null | undefined;
+export type MusicFolderListResponse = BasePaginatedResponse<MusicFolder[]>;
 
 export type PlaylistDetailArgs = BaseEndpointArgs & { query: PlaylistDetailQuery };
 
@@ -1004,6 +1018,10 @@ export type PlaylistDetailResponse = Playlist;
 
 export type PlaylistSongListArgs = BaseEndpointArgs & { query: PlaylistSongListQuery };
 
+export type PlaylistSongListCountArgs = BaseEndpointArgs & {
+    query: ListCountQuery<PlaylistSongListQuery>;
+};
+
 export type PlaylistSongListQuery = {
     id: string;
 };
@@ -1014,7 +1032,7 @@ export type PlaylistSongListQueryClientSide = {
 };
 
 // Playlist Songs
-export type PlaylistSongListResponse = BasePaginatedResponse<Song[]> | null | undefined;
+export type PlaylistSongListResponse = BasePaginatedResponse<Song[]>;
 
 export type UserListArgs = BaseEndpointArgs & { query: UserListQuery };
 
@@ -1031,7 +1049,7 @@ export interface UserListQuery extends BaseQuery<UserListSort> {
 
 // User list
 // Playlist List
-export type UserListResponse = BasePaginatedResponse<User[]> | null | undefined;
+export type UserListResponse = BasePaginatedResponse<User[]>;
 
 type UserListSortMap = {
     jellyfin: Record<UserListSort, undefined>;
@@ -1128,7 +1146,7 @@ export type ScrobbleQuery = {
 };
 
 // Scrobble
-export type ScrobbleResponse = null | undefined;
+export type ScrobbleResponse = null;
 
 export type SearchAlbumArtistsQuery = {
     albumArtistLimit?: number;
@@ -1183,7 +1201,7 @@ export type TopSongListQuery = {
 };
 
 // Top Songs List
-export type TopSongListResponse = BasePaginatedResponse<Song[]> | null | undefined;
+export type TopSongListResponse = BasePaginatedResponse<Song[]>;
 
 export const instanceOfCancellationError = (error: any) => {
     return 'revert' in error;
@@ -1207,21 +1225,21 @@ export type ControllerEndpoint = {
     deletePlaylist: (args: DeletePlaylistArgs) => Promise<DeletePlaylistResponse>;
     getAlbumArtistDetail: (args: AlbumArtistDetailArgs) => Promise<AlbumArtistDetailResponse>;
     getAlbumArtistList: (args: AlbumArtistListArgs) => Promise<AlbumArtistListResponse>;
-    getAlbumArtistListCount: (args: AlbumArtistListArgs) => Promise<number>;
+    getAlbumArtistListCount: (args: AlbumArtistListCountArgs) => Promise<number>;
     getAlbumDetail: (args: AlbumDetailArgs) => Promise<AlbumDetailResponse>;
     getAlbumInfo?: (args: AlbumDetailArgs) => Promise<AlbumInfo>;
     getAlbumList: (args: AlbumListArgs) => Promise<AlbumListResponse>;
-    getAlbumListCount: (args: AlbumListArgs) => Promise<number>;
+    getAlbumListCount: (args: AlbumListCountArgs) => Promise<number>;
     // getArtistInfo?: (args: any) => void;
     getArtistList: (args: ArtistListArgs) => Promise<ArtistListResponse>;
-    getArtistListCount: (args: ArtistListArgs) => Promise<number>;
+    getArtistListCount: (args: ArtistListCountArgs) => Promise<number>;
     getDownloadUrl: (args: DownloadArgs) => string;
     getGenreList: (args: GenreListArgs) => Promise<GenreListResponse>;
     getLyrics?: (args: LyricsArgs) => Promise<LyricsResponse>;
     getMusicFolderList: (args: MusicFolderListArgs) => Promise<MusicFolderListResponse>;
     getPlaylistDetail: (args: PlaylistDetailArgs) => Promise<PlaylistDetailResponse>;
     getPlaylistList: (args: PlaylistListArgs) => Promise<PlaylistListResponse>;
-    getPlaylistListCount: (args: PlaylistListArgs) => Promise<number>;
+    getPlaylistListCount: (args: PlaylistListCountArgs) => Promise<number>;
     getPlaylistSongList: (args: PlaylistSongListArgs) => Promise<SongListResponse>;
     getRandomSongList: (args: RandomSongListArgs) => Promise<SongListResponse>;
     getRoles: (args: BaseEndpointArgs) => Promise<Array<string | { label: string; value: string }>>;
@@ -1229,7 +1247,7 @@ export type ControllerEndpoint = {
     getSimilarSongs: (args: SimilarSongsArgs) => Promise<Song[]>;
     getSongDetail: (args: SongDetailArgs) => Promise<SongDetailResponse>;
     getSongList: (args: SongListArgs) => Promise<SongListResponse>;
-    getSongListCount: (args: SongListArgs) => Promise<number>;
+    getSongListCount: (args: SongListCountArgs) => Promise<number>;
     getStructuredLyrics?: (args: StructuredLyricsArgs) => Promise<StructuredLyric[]>;
     getTags?: (args: TagArgs) => Promise<TagResponses>;
     getTopSongs: (args: TopSongListArgs) => Promise<TopSongListResponse>;

@@ -92,6 +92,8 @@
         "playerMustBePaused": "player must be paused",
         "preview": "preview",
         "previousSong": "previous $t(entity.track_one)",
+        "private": "private",
+        "public": "public",
         "quit": "quit",
         "random": "random",
         "rating": "rating",
@@ -250,8 +252,10 @@
             "title": "add server"
         },
         "addToPlaylist": {
+            "create": "create $t(entity.playlist_one) {{playlist}}",
             "input_playlists": "$t(entity.playlist_other)",
             "input_skipDuplicates": "skip duplicates",
+            "searchOrCreate": "Search $t(entity.playlist_other) or type to create a new one",
             "success": "added $t(entity.trackWithCount, {\"count\": {{message}} }) to $t(entity.playlistWithCount, {\"count\": {{numOfPlaylists}} })",
             "title": "add to $t(entity.playlist_one)"
         },
@@ -554,6 +558,7 @@
         "discordListening": "show status as listening",
         "discordPausedStatus_description": "when enabled, status will show when player is paused",
         "discordPausedStatus": "show rich presence when paused",
+        "discordRichPresence": "{{discord}} rich presence",
         "discordRichPresence_description": "enable playback status in {{discord}} rich presence. Image keys are: {{icon}}, {{playing}}, and {{paused}}",
         "discordServeImage": "serve {{discord}} images from server",
         "discordServeImage_description": "share cover art for {{discord}} rich presence from server itself, only available for Jellyfin and Navidrome. {{discord}} uses a bot to fetch images, so your server must be reachable from the public internet",
